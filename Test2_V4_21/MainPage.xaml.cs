@@ -5,6 +5,7 @@ using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
+using Windows.UI.Popups;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
@@ -31,13 +32,56 @@ namespace Test2_V4_21
         {
             //This code obtains the user input from the four input controls. 
             //Please use these variables for Part B of the test.
+
             DateTime serviceDate = dtpEnterServiceDate.Date.DateTime;
             string custName = txtEnterCustomerName.Text;
             decimal taxRate = decimal.Parse(txtEnterTaxRate.Text);
             decimal[] allCharges = ConvertToDecimalArray(txtEnterServiceCharges.Text);
-            //Code here for Part B of the test!
-    if (taxRate > 0.4)
+            try
+            {
+                //Code here for Part B of the test!
+                if (custName == null)
+                {
+                    MessageDialog dialog = new MessageDialog("Please Enter Customer name");
+                    _ = dialog.ShowAsync();
+                }
+                else if (taxRate > 0.4m)
+                {
 
+                    MessageDialog dialog = new MessageDialog("TaxRate is more than 40%");
+                    _ = dialog.ShowAsync();
+                }
+                else if (allCharges == null)
+                {
+                    MessageDialog dialog = new MessageDialog("TaxRate is more than 40%");
+                    _ = dialog.ShowAsync();
+                }
+                else
+                {
+                    try
+                    {
+                        InvoiceInstance invoice = new InvoiceInstance(custName, serviceDate, allCharges, taxRate);
+                        txtInvoiceCompanyName.Text = "Patel Industries";
+                        txtInvoiceCustomerName.Text = custName;
+                        txtInvoiceTotal.Text = invoice.CalculateTotal(taxRate).ToString();
+                        txtInvoiceServiceDate.DataContext = serviceDate.ToString();
+                        txtInvoiceServiceCharges.Text = invoice.ListServiceCharges();
+                    }
+                    catch (Exception es)
+                    {
+                        MessageDialog dialog = new MessageDialog(es.Message);
+                        _ = dialog.ShowAsync();
+                    }
+                }
+                
+            }
+            catch (Exception es)
+            {
+                MessageDialog dialog = new MessageDialog(es.Message);
+                //MessageDialog message = new MessageDialog(es.InnerException.ToString());
+                _ = dialog.ShowAsync();
+                //_ = message.ShowAsync();
+            }
             //This line of code makes the Display Invoice section visible (the reset button hides it)
             DisplayInvoice.Visibility = Visibility.Visible;
         }
