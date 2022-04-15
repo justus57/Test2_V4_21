@@ -14,7 +14,6 @@ namespace Test2_V4_21
         private DateTime serviceDate;
         private decimal Rate;
 
-
         public InvoiceInstance(string name, DateTime date, decimal[] scharge, decimal rate)
         {
             customerName = name;
@@ -22,7 +21,6 @@ namespace Test2_V4_21
             serviceCharges = scharge;
             Rate = rate;
         }
-
 
         public string Name
         {
