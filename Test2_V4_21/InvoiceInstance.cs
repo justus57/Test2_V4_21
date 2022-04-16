@@ -58,8 +58,6 @@ namespace Test2_V4_21
             decimal finalTotal = tax + total;
 
             return finalTotal;
-
         }
-
     }
 }
