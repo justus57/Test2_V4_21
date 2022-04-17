@@ -54,9 +54,7 @@ namespace Test2_V4_21
                 total += serviceCharges[i];
             }
             decimal tax = total * taxRate;
-
             decimal finalTotal = tax + total;
-
             return finalTotal;
         }
     }
