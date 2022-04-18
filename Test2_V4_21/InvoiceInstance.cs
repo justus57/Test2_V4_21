@@ -21,12 +21,10 @@ namespace Test2_V4_21
             serviceCharges = scharge;
             Rate = rate;
         }
-
         public string Name
         {
             get { return customerName; }
         }
-
         public InvoiceInstance()
         {
             serviceDate = DateTime.Now;
